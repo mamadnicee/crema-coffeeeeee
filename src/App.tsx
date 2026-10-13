@@ -20,7 +20,7 @@ function App(){
  const filtered=useMemo(()=>products.filter(p=>(category==="All"||p.type===category)&&`${p.name} ${p.notes}`.toLowerCase().includes(query.toLowerCase())),[category,query]);
  const add=(id:number)=>setCart(c=>({...c,[id]:(c[id]||0)+1}));
  const change=(id:number,d:number)=>setCart(c=>{const next={...c,[id]:(c[id]||0)+d};if(next[id]<=0)delete next[id];return next;});
- const jump=(s:string)=>{setMenu(false);document.getElementById(s.toLowerCase().replaceAll(" ","-"))?.scrollIntoView({behavior:"smooth"});};
+ const jump=(s:string)=>{setMenu(false);document.getElementById(s.toLowerCase().replace(/ /g,"-"))?.scrollIntoView({behavior:"smooth"});};
  const openModal=(s:string)=>setModal(s);
  return <>
  <header className="topbar"><a className="brand" href="#home">CREMA<span>®</span><small>THE ART OF COFFEE</small></a><button className="menu-toggle" aria-label="Toggle navigation" onClick={()=>setMenu(!menu)}>{menu?"×":"☰"}</button><nav className={menu?"nav open":"nav"}>{sections.slice(1,6).map(s=><button key={s} onClick={()=>jump(s)}>{s}</button>)}</nav><button className="cart-trigger" onClick={()=>setCartOpen(true)} aria-label={`Open bag, ${count} items`}>Bag <b>{count}</b></button></header>
